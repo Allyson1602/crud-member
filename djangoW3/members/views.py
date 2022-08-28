@@ -1,7 +1,12 @@
 from django.http import HttpResponse
-from django.template import loader
+from .models import Members
 
 
 def index(request):
-    template = loader.get_template('myfirst.html')
-    return HttpResponse(template.render())
+    output = ""
+    mymembers = Members.objects.all().values()
+
+    for x in mymembers:
+        output += x['firstname']
+
+    return HttpResponse(output)
